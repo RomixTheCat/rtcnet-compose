@@ -9,6 +9,7 @@ services:
       - /var/lib/zones:/zones:ro
       - ./named.conf:/etc/bind/named.conf:ro
       - /etc/bind/tsig-keys.conf:/etc/bind/tsig-keys.conf:ro
+      - /etc/bind/keys:/etc/bind/keys:ro
       - data:/var/lib/bind:rw
       - workdir:/var/cache/bind:rw
 
