@@ -3,6 +3,7 @@ services:
     image: tecnativa/docker-socket-proxy:latest
     restart: unless-stopped
     privileged: true
+    userns_mode: host
     networks:
       - default
     volumes:
