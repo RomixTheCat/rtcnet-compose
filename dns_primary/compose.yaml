@@ -1,16 +1,15 @@
 services:
   bind:
-    image: internetsystemsconsortium/bind9:9.20
+    image: ubuntu/bind9:latest
     restart: unless-stopped
     ports:
       - 53:53/tcp
       - 53:53/udp
     volumes:
       - /var/lib/zones:/zones:ro
-      - ./config:/etc/bind:ro
+      - ./named.conf:/etc/bind/named.conf:ro
       - data:/var/lib/bind:rw
       - workdir:/var/cache/bind:rw
-      - logs:/var/log:rw
 
 networks:
   default:
@@ -19,4 +18,3 @@ networks:
 volumes:
   data:
   workdir:
-  logs:
