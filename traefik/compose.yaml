@@ -1,0 +1,55 @@
+services:
+  docker_socket_proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    restart: unless-stopped
+    privileged: true
+    networks:
+      - default
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      CONTAINERS: '1'
+
+  traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    networks:
+      - default
+      - traefik
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+      - 443:443/udp
+    volumes:
+      - acme:/acme:rw
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --entrypoints.websecure.http3=true
+      - --certificatesresolvers.letsencrypt.acme.email=i.am@romixthecat.cc
+      - --certificatesresolvers.letsencrypt.acme.keytype=ec256
+      - --certificatesresolvers.letsencrypt.acme.profile=shortlived
+      - --certificatesresolvers.letsencrypt.acme.certificatesDuration=160
+      - --certificatesresolvers.letsencrypt.acme.storage=/acme/letsencrypt.json
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --providers.docker=true
+      - --providers.docker.endpoint=tcp://docker_socket_proxy:2375
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=traefik
+      - --log.level=INFO
+
+networks:
+  default:
+    enable_ipv6: true
+  
+  traefik:
+    name: traefik
+    enable_ipv6: true
+
+volumes:
+  acme:
