@@ -1,0 +1,22 @@
+services:
+  bind:
+    image: internetsystemsconsortium/bind9:9.20
+    restart: unless-stopped
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    volumes:
+      - /var/lib/zones:/zones:ro
+      - ./config:/etc/bind:ro
+      - data:/var/lib/bind:rw
+      - workdir:/var/cache/bind:rw
+      - logs:/var/log:rw
+
+networks:
+  default:
+    enable_ipv6: true
+
+volumes:
+  data:
+  workdir:
+  logs:
