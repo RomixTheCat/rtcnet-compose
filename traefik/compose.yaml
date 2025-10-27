@@ -55,7 +55,8 @@ services:
       traefik.http.routers.traefik-dashboard-redirect.rule: Host(`${RTCNET_HOST:?error}.traefik.romixthecat.cc`) && Path(`/`)
       traefik.http.routers.traefik-dashboard-redirect.service: noop@internal
       traefik.http.routers.traefik-dashboard-redirect.middlewares: vpn-allow-list, traefik-dashboard-redirect
-      traefik.http.middlewares.traefik-dashboard-redirect.addprefix.prefix: /dashboard
+      traefik.http.middlewares.traefik-dashboard-redirect.redirectregex.regex: .*
+      traefik.http.middlewares.traefik-dashboard-redirect.redirectregex.replacement: https://${RTCNET_HOST:?error}.traefik.romixthecat.cc/dashboard/
       traefik.http.middlewares.vpn-allow-list.ipallowlist.sourcerange: 10.142.0.0/16, fd9e:981f:bc5e::/48, 172.16.0.0/16, fd55:b5ae:10f8::/64
 
 networks:
