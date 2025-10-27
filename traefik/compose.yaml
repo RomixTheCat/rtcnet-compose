@@ -34,6 +34,7 @@ services:
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certresolver=letsencrypt
       - --entrypoints.websecure.http3=true
+      - --entrypoints.websecure.asdefault=true
       - --certificatesresolvers.letsencrypt.acme.email=i.am@romixthecat.cc
       - --certificatesresolvers.letsencrypt.acme.keytype=EC256
       # - --certificatesresolvers.letsencrypt.acme.profile=shortlived
