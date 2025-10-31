@@ -3,7 +3,7 @@ services:
     image: kanidm/server:latest
     restart: unless-stopped
     volumes:
-      - kanidm_data:/data:rw
+      - data:/data:rw
       - ./config/${RTCNET_HOST:?error}:/config:ro
       - /var/lib/certs/idm:/cert:ro
     environment:
@@ -14,3 +14,13 @@ services:
       traefik.http.services.komodo.loadbalancer.server.scheme: https
       traefik.http.services.komodo.loadbalancer.server.serverstransport: idm@file
       traefik.http.routers.komodo.rule: Host(`${RTCNET_HOST:?error}.idm.rtcid.ru`)
+
+networks:
+  default:
+    enable_ipv6: true
+  
+  traefik:
+    external: true
+
+volumes:
+  data:
