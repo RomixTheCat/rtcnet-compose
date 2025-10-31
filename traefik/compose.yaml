@@ -25,6 +25,7 @@ services:
       - 443:443/udp
     volumes:
       - ./dynamic:/dynamic:ro
+      - /var/lib/certs/traefik:/certs:ro
       - acme:/acme:rw
     command:
       - --entrypoints.web.address=:80
