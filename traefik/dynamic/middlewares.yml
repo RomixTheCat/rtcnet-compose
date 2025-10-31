@@ -1,0 +1,9 @@
+http:
+  middlewares:
+    vpn-allow-list:
+      ipAllowList:
+        sourceRange:
+          - 10.142.0.0/16
+          - fd9e:981f:bc5e::/48
+          - 172.16.0.0/16
+          - fd55:b5ae:10f8::/64
