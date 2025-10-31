@@ -1,0 +1,10 @@
+version = "2"
+bindaddress = "[::]:8443"
+db_path = "/data/kanidm.db"
+tls_chain = "/cert/chain.pem"
+tls_key = "/cert/key.pem"
+domain = "idm.rtcid.ru"
+origin = "https://ru1.idm.rtcid.ru"
+
+[http_client_address_info]
+x-forward-for = ["172.16.0.0/16", "fd55:b5ae:10f8::/64"]
