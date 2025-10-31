@@ -22,10 +22,10 @@ services:
       KANIDM_CONFIG: /config/server.toml
     labels:
       traefik.enable: 'true'
-      traefik.http.services.komodo.loadbalancer.server.port: '8443'
-      traefik.http.services.komodo.loadbalancer.server.scheme: https
-      traefik.http.services.komodo.loadbalancer.serverstransport: idm@file
-      traefik.http.routers.komodo.rule: Host(`${RTCNET_HOST:?error}.idm.rtcid.ru`)
+      traefik.http.services.kanidm.loadbalancer.server.port: '8443'
+      traefik.http.services.kanidm.loadbalancer.server.scheme: https
+      traefik.http.services.kanidm.loadbalancer.serverstransport: idm@file
+      traefik.http.routers.kanidm.rule: Host(`${RTCNET_HOST:?error}.idm.rtcid.ru`)
 
 networks:
   default:
