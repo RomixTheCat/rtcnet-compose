@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    shm_size: 128mb
+    secrets:
+      - db_password
+    volumes:
+      - db:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_USER: vaultwarden
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    secrets:
+      - db_url
+      - admin_token
+      - installation_id
+      - installation_key
+    networks:
+      - default
+      - traefik
+    volumes:
+      - data:/data:rw
+    environment:
+      DOMAIN: "https://vaultwarden.romixthecat.cc"
+      DATABASE_URL_FILE: /run/secrets/db_url
+      SIGNUPS_ALLOWED: 'true'
+      INVITATIONS_ALLOWED: 'false'
+      ADMIN_TOKEN_FILE: /run/secrets/admin_token
+      PUSH_ENABLED: 'true'
+      PUSH_INSTALLATION_ID_FILE: /run/secrets/installation_id
+      PUSH_INSTALLATION_KEY_FILE: /run/secrets/installation_id
+      PUSH_RELAY_URI: https://api.bitwarden.eu
+      PUSH_IDENTITY_URI: https://identity.bitwarden.eu
+    labels:
+      traefik.enable: 'true'
+      traefik.http.services.vaultwarden.loadbalancer.server.port: '80'
+      traefik.http.routers.vaultwarden.rule: Host(`vaultwarden.romixthecat.cc`)
+
+secrets:
+  db_password:
+    environment: SECRET_DB_PASSWORD
+  
+  db_url:
+    environment: SECRET_DB_URL
+
+  admin_token:
+    environment: SECRET_ADMIN_TOKEN
+  
+  installation_id:
+    environment: SECRET_INSTALLATION_ID
+  
+  installation_key:
+    environment: SECRET_INSTALLATION_KEY
+
+networks:
+  default:
+    enable_ipv6: true
+  
+  traefik:
+    external: true
+
+volumes:
+  db:
+  data:
