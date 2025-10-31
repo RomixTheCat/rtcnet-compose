@@ -18,7 +18,7 @@ services:
       POSTGRES_DB: vaultwarden
 
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:latest-alpine
     restart: unless-stopped
     depends_on:
       postgres:
