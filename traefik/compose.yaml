@@ -24,7 +24,7 @@ services:
       - 443:443/tcp
       - 443:443/udp
     volumes:
-      - dynamic:/dynamic:ro
+      - ./dynamic:/dynamic:ro
       - acme:/acme:rw
     command:
       - --entrypoints.web.address=:80
