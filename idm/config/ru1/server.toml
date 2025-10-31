@@ -1,5 +1,6 @@
 version = "2"
 bindaddress = "[::]:8443"
+ldapbindaddress = "[::]:3636"
 db_path = "/data/kanidm.db"
 tls_chain = "/cert/cert.pem"
 tls_key = "/cert/key.pem"
