@@ -37,7 +37,7 @@ services:
     environment:
       DOMAIN: https://vaultwarden.romixthecat.cc
       DATABASE_URL_FILE: /run/secrets/db_url
-      SIGNUPS_ALLOWED: 'true'
+      SIGNUPS_ALLOWED: 'false'
       INVITATIONS_ALLOWED: 'false'
       ADMIN_TOKEN_FILE: /run/secrets/admin_token
       PUSH_ENABLED: 'true'
