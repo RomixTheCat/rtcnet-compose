@@ -11,5 +11,5 @@ origin = "https://ru1.idm.rtcid.ru"
 x-forward-for = ["172.16.0.0/16", "fd55:b5ae:10f8::/64"]
 
 [replication]
-origin = "repl://[fd9e:981f:bc5e::a]:8444"
+origin = "repl://ru1.romixthecat.cc:8444"
 bindaddress = "[::]:8444"
