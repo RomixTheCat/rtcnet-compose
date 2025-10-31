@@ -1,7 +1,7 @@
 version = "2"
 bindaddress = "[::]:8443"
 db_path = "/data/kanidm.db"
-tls_chain = "/cert/chain.pem"
+tls_chain = "/cert/cert.pem"
 tls_key = "/cert/key.pem"
 domain = "idm.rtcid.ru"
 origin = "https://ru1.idm.rtcid.ru"
