@@ -9,3 +9,7 @@ origin = "https://ru1.idm.rtcid.ru"
 
 [http_client_address_info]
 x-forward-for = ["172.16.0.0/16", "fd55:b5ae:10f8::/64"]
+
+[replication]
+origin = "repl://[fd9e:981f:bc5e::a]:8444"
+bindaddress = "[::]:8444"

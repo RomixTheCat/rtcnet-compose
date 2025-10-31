@@ -17,6 +17,9 @@ services:
     networks:
       - default
       - traefik
+    ports:
+      - ${VPN_IPV4:?error}:8444:8444
+      - ${VPN_IPV6:?error}:8444:8444
     volumes:
       - data:/data:rw
       - ./config/${RTCNET_HOST:?error}:/config:ro
