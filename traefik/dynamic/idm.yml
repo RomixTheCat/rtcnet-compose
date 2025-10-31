@@ -1,5 +1,10 @@
 http:
   serversTransports:
-    idm:
+    idm-nl1:
+      serverName: "nl1.idm.rtcid.ru"
+      rootcas:
+        - /certs/idm.pem
+    idm-ru1:
+      serverName: "ru1.idm.rtcid.ru"
       rootcas:
         - /certs/idm.pem
