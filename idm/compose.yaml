@@ -4,7 +4,6 @@ services:
     restart: no
     volumes:
       - data:/data:rw
-      - /var/lib/certs/idm:/cert:rw
       - ./prestart.sh:/prestart.sh:ro
     command: /prestart.sh
 
