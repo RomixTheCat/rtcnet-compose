@@ -27,7 +27,6 @@ services:
       traefik.enable: 'true'
       traefik.http.services.kanidm.loadbalancer.server.port: '8443'
       traefik.http.services.kanidm.loadbalancer.server.scheme: https
-      traefik.http.services.kanidm.loadbalancer.passhostheader: 'true'
       traefik.http.services.kanidm.loadbalancer.serverstransport: idm@file
       traefik.http.routers.kanidm.rule: Host(`${RTCNET_HOST:?error}.idm.rtcid.ru`)
 
