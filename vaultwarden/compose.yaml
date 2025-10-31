@@ -11,7 +11,7 @@ services:
     secrets:
       - db_password
     volumes:
-      - db:/var/lib/postgresql/data:rw
+      - db:/var/lib/postgresql:rw
     environment:
       POSTGRES_USER: vaultwarden
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
