@@ -74,8 +74,8 @@ services:
       GITEA__oauth2__ENABLED: 'false'
     labels:
       traefik.enable: 'true'
-      traefik.http.services.vaultwarden.loadbalancer.server.port: '3000'
-      traefik.http.routers.vaultwarden.rule: Host(`gitea.romixthecat.cc`)
+      traefik.http.services.gitea.loadbalancer.server.port: '3000'
+      traefik.http.routers.gitea.rule: Host(`gitea.romixthecat.cc`)
 
 secrets:
   db_password:
