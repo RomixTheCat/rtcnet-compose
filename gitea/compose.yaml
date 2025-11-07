@@ -17,6 +17,14 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: gitea
       PGUSER: gitea
+  
+  prestart:
+    image: alpine:latest
+    restart: no
+    volumes:
+      - data:/data:rw
+      - ./prestart.sh:/prestart.sh:ro
+    command: /prestart.sh
 
   server:
     image: docker.gitea.com/gitea:latest
@@ -24,6 +32,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      prestart:
+        condition: service_completed_successfully
     networks:
       - default
       - traefik
