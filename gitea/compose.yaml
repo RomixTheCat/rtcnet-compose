@@ -1,0 +1,79 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    shm_size: 128mb
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready', '-U', 'vaultwarden', '-d', 'vaultwarden']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    secrets:
+      - db_password
+    volumes:
+      - db:/var/lib/postgresql:rw
+    environment:
+      POSTGRES_USER: gitea
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB: gitea
+      PGUSER: gitea
+
+  server:
+    image: docker.gitea.com/gitea:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - default
+      - traefik
+    ports:
+      - 2222:22/tcp
+    volumes:
+      - data:/data:rw
+    environment:
+      USER_UID: '1000'
+      USER_GID: '1000'
+      GITEA__DEFAULT__APP_NAME: Gitea
+      GITEA__DEFAULT__RUN_MODE: prod
+      GITEA__repository__DEFAULT_BRANCH: main
+      GITEA__ui_meta__AUTHOR: Gitea
+      GITEA__ui_meta__DESCRIPTION: Gitea is a painless self-hosted Git service written in Go
+      GITEA__server__APP_DATA_PATH: /data
+      GITEA__server__DOMAIN: gitea.romixthecat.cc
+      GITEA__server__ROOT_URL: https://gitea.romixthecat.cc
+      GITEA__server__SSH_PORT: '2222'
+      GITEA__server__LFS_START_SERVER: 'true'
+      GITEA__server__LFS_JWT_SECRET: ${SECRET_LFS_JWT_SECRET:?error}
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: postgres
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: ${SECRET_DB_PASSWORD:?error}
+      GITEA__security__INSTALL_LOCK: 'true'
+      GITEA__security__REVERSE_PROXY_TRUSTED_PROXIES: 172.16.0.0/16,fd55:b5ae:10f8::/64
+      GITEA__security__SECRET_KEY: ${SECRET_SECRET_KEY:?error}
+      GITEA__security__INTERNAL_TOKEN: ${SECRET_INTERNAL_TOKEN:?error}
+      GITEA__openid__ENABLE_OPENID_SIGNIN: 'true'
+      GITEA__openid__ENABLE_OPENID_SIGNUP: 'true'
+      GITEA__oauth2_client__REGISTER_EMAIL_CONFIRM: 'false'
+      GITEA__oauth2_client__OPENID_CONNECT_SCOPES: email,profile
+      GITEA__oauth2_client__ENABLE_AUTO_REGISTRATION: 'true'
+      GITEA__oauth2_client__USERNAME: preferred_username
+      GITEA__service__DISABLE_REGISTRATION: 'true'
+      GITEA__oauth2__ENABLED: 'false'
+
+secrets:
+  db_password:
+    environment: SECRET_DB_PASSWORD
+
+networks:
+  default:
+    enable_ipv6: true
+  
+  traefik:
+    external: true
+
+volumes:
+  db:
+  data:
