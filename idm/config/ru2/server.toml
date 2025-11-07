@@ -1,0 +1,19 @@
+version = "2"
+bindaddress = "[::]:8443"
+ldapbindaddress = "[::]:3636"
+db_path = "/data/kanidm.db"
+tls_chain = "/cert/cert.pem"
+tls_key = "/cert/key.pem"
+domain = "idm.rtcid.ru"
+origin = "https://ru2.idm.rtcid.ru"
+
+[http_client_address_info]
+x-forward-for = ["172.16.0.0/16", "fd55:b5ae:10f8::/64"]
+
+[replication]
+origin = "repl://ru2.romixthecat.cc:8444"
+bindaddress = "[::]:8444"
+
+[replication."repl://ru1.romixthecat.cc:8444"]
+type = "mutual-pull"
+partner_cert = "MIICBTCCAaqgAwIBAgIBATAKBggqhkjOPQQDAjBMMRswGQYDVQQKDBJLYW5pZG0gUmVwbGljYXRpb24xLTArBgNVBAMMJDJhZmVjMTFkLWY2ZDgtNDgyNi04MTdjLWE0ZTBjMTJiNTk2NDAeFw0yNTEwMzEyMDE0MzNaFw0yOTEwMzEyMDE0MzNaMEwxGzAZBgNVBAoMEkthbmlkbSBSZXBsaWNhdGlvbjEtMCsGA1UEAwwkMmFmZWMxMWQtZjZkOC00ODI2LTgxN2MtYTRlMGMxMmI1OTY0MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErMckiS8yO93q4a6W4qOfgPNZ0bAMr0OjHAaT8c9LS-TF_aKqU0qEkpUm4teIc5ASnXxnESCabEfJF6slkPhgZqN9MHswDAYDVR0TAQH_BAIwADAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMB0GA1UdDgQWBBTaOaPuXmtLDTJVv--VYBiQr9gHCTAdBgNVHREEFjAUghJydTEucm9taXh0aGVjYXQuY2MwCgYIKoZIzj0EAwIDSQAwRgIhAOFX8przXhYkE195KU8ya9jmbinFXdrCfE36mISFaJMGAiEA9kj3oX7Il8obGU05gyJ5AcJmcu0tKkAn8mISz165-8Y="
