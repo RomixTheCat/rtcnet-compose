@@ -64,13 +64,8 @@ services:
       GITEA__security__REVERSE_PROXY_TRUSTED_PROXIES: 172.16.0.0/16,fd55:b5ae:10f8::/64
       GITEA__security__SECRET_KEY: ${SECRET_SECRET_KEY:?error}
       GITEA__security__INTERNAL_TOKEN: ${SECRET_INTERNAL_TOKEN:?error}
-      GITEA__openid__ENABLE_OPENID_SIGNIN: 'true'
-      GITEA__openid__ENABLE_OPENID_SIGNUP: 'true'
-      GITEA__oauth2_client__REGISTER_EMAIL_CONFIRM: 'false'
-      GITEA__oauth2_client__OPENID_CONNECT_SCOPES: email profile
-      GITEA__oauth2_client__ENABLE_AUTO_REGISTRATION: 'true'
-      GITEA__oauth2_client__USERNAME: preferred_username
-      GITEA__service__DISABLE_REGISTRATION: 'true'
+      GITEA__openid__ENABLE_OPENID_SIGNIN: 'false'
+      GITEA__service__DISABLE_REGISTRATION: 'false'
       GITEA__oauth2__ENABLED: 'false'
     labels:
       traefik.enable: 'true'
