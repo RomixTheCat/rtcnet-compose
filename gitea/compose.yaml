@@ -44,8 +44,8 @@ services:
     environment:
       USER_UID: '1000'
       USER_GID: '1000'
-      GITEA__DEFAULT__APP_NAME: Gitea
-      GITEA__DEFAULT__RUN_MODE: prod
+      GITEA____APP_NAME: Gitea
+      GITEA____RUN_MODE: prod
       GITEA__repository__DEFAULT_BRANCH: main
       GITEA__ui_meta__AUTHOR: Gitea
       GITEA__ui_meta__DESCRIPTION: Gitea is a painless self-hosted Git service written in Go
