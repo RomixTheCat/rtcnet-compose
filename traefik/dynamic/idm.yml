@@ -8,3 +8,7 @@ http:
       serverName: "ru1.idm.rtcid.ru"
       rootcas:
         - /certs/idm.pem
+    idm-ru2:
+      serverName: "ru2.idm.rtcid.ru"
+      rootcas:
+        - /certs/idm.pem
